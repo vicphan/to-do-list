@@ -83,3 +83,7 @@ body {
   overflow: auto;
 }
 
+.trash-icon{
+  margin-top: 10px;
+  margin-left: 10px;
+}
