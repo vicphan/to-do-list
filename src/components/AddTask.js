@@ -12,8 +12,15 @@ const AddTask = ({addTask}) => {
             alert("Task should not be empty.")
             return
         }
+
+        if (!date){
+            alert("Date should not be empty.")
+            return
+        }
+
+        const checked = false
         
-        addTask({text, date})
+        addTask({text, date, checked})
         setText('')
         setDate(new Date())
     }

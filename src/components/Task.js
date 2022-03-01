@@ -1,10 +1,19 @@
+import { useState } from 'react'
 import {FaTrash} from 'react-icons/fa'
 
-const Task = ({ task, deleteTask }) => {
+const Task = ({ task, deleteTask, toggleChecked }) => {
+
+    const [checked, setChecked] = useState(task.checked)
+
+    const onChange = (e) => {
+        setChecked(!checked)
+        toggleChecked(task.id)
+    }
+
     return (
         <div className="task-container">
-            <input type="checkbox"></input>
-            <div className="task-text-container">
+            <input type="checkbox" checked={checked} onChange={onChange}></input>
+            <div className={`task-text-container ${checked ? 'checked':''}`}>
                 <h3>{task.text}</h3>
                 <p>{task.date}</p>
             </div>

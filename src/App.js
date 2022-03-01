@@ -47,11 +47,27 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  const toggleChecked = async(id) => {
+    const taskToEdit = await getTask(id)
+    const updatedTask = { ... taskToEdit, checked: !taskToEdit.checked}
+
+    const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(updatedTask)
+    })
+
+    const data = await response.json()
+    setTasks(tasks.map((task) => task.id === id ? { ... task, checked: !data.checked} : task ))
+  }
+
   return (
     <div className="container">
       <Header />
       <AddTask addTask={addTask}/>
-      <Tasks tasks={tasks} deleteTask={deleteTask}/>
+      <Tasks tasks={tasks} deleteTask={deleteTask} toggleChecked={toggleChecked}/>
     </div>
   )
 }
